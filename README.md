@@ -30,3 +30,5 @@ start_app.bat
 ![Application code files](token-checker-dosyalar.PNG)
 
 **My Discord account: souse.0**
+
+[Discord server](https://discord.gg/7yHSkrMZfg)
