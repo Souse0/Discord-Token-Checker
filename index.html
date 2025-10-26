@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Token Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Discord Token Checker</h1>
+            <p>Token'larınızı güvenli bir şekilde kontrol edin</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <div class="input-options">
+                    <div class="input-method">
+                        <h3>Tek Token</h3>
+                        <textarea id="tokenInput" placeholder="Discord token'ınızı buraya yapıştırın..."></textarea>
+                    </div>
+                    
+                    <div class="input-method">
+                        <h3>Çoklu Token (Dosyadan)</h3>
+                        <div class="file-input-container">
+                            <input type="file" id="tokenFile" accept=".txt" />
+                            <label for="tokenFile" class="file-label">Dosya Seç</label>
+                            <span id="fileName">Hiçbir dosya seçilmedi</span>
+                        </div>
+                        <div class="file-info">
+                            <small>Her satıra bir token yazın (.txt formatında)</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="checkSingleButton">Tek Token'ı Kontrol Et</button>
+                    <button id="checkFileButton">Dosyadaki Token'ları Kontrol Et</button>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="results-header">
+                    <h2>Sonuçlar</h2>
+                    <div class="pagination" id="pagination">
+                        <!-- Pagination will be added here -->
+                    </div>
+                </div>
+                <div id="resultsContainer">
+                    <!-- Token results will be displayed here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
