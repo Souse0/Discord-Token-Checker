@@ -10,26 +10,34 @@
     <div class="container">
         <header>
             <h1>Discord Token Checker</h1>
-            <p>Token'larınızı güvenli bir şekilde kontrol edin</p>
+            <p id="appDescription">Token'larınızı güvenli bir şekilde kontrol edin</p>
+            <!-- Language selector -->
+            <div class="language-selector">
+                <label for="languageSelect">Language / Dil:</label>
+                <select id="languageSelect">
+                    <option value="tr">Türkçe</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
         </header>
 
         <main>
             <div class="input-section">
                 <div class="input-options">
                     <div class="input-method">
-                        <h3>Tek Token</h3>
+                        <h3 id="singleTokenTitle">Tek Token</h3>
                         <textarea id="tokenInput" placeholder="Discord token'ınızı buraya yapıştırın..."></textarea>
                     </div>
                     
                     <div class="input-method">
-                        <h3>Çoklu Token (Dosyadan)</h3>
+                        <h3 id="multiTokenTitle">Çoklu Token (Dosyadan)</h3>
                         <div class="file-input-container">
                             <input type="file" id="tokenFile" accept=".txt" />
-                            <label for="tokenFile" class="file-label">Dosya Seç</label>
+                            <label for="tokenFile" class="file-label" id="fileSelectLabel">Dosya Seç</label>
                             <span id="fileName">Hiçbir dosya seçilmedi</span>
                         </div>
                         <div class="file-info">
-                            <small>Her satıra bir token yazın (.txt formatında)</small>
+                            <small id="fileInfoText">Her satıra bir token yazın (.txt formatında)</small>
                         </div>
                     </div>
                 </div>
@@ -42,7 +50,7 @@
 
             <div class="results-section">
                 <div class="results-header">
-                    <h2>Sonuçlar</h2>
+                    <h2 id="resultsTitle">Sonuçlar</h2>
                     <div class="pagination" id="pagination">
                         <!-- Pagination will be added here -->
                     </div>
