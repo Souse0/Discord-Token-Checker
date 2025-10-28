@@ -48,6 +48,36 @@ header p {
   color: var(--light-gray);
 }
 
+/* Language selector styles */
+.language-selector {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.language-selector label {
+  font-size: 1rem;
+  color: var(--light-gray);
+}
+
+.language-selector select {
+  background-color: var(--dark-gray);
+  color: var(--white);
+  border: 2px solid var(--purple);
+  border-radius: 8px;
+  padding: 8px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.language-selector select:focus {
+  outline: none;
+  border-color: var(--light-purple);
+  box-shadow: 0 0 10px rgba(155, 93, 229, 0.5);
+}
+
 .input-section {
   background-color: var(--darker-bg);
   border-radius: 10px;
@@ -360,5 +390,10 @@ header p {
   
   .token-details {
     grid-template-columns: 1fr;
+  }
+  
+  .language-selector {
+    flex-direction: column;
+    gap: 5px;
   }
 }
