@@ -1,5 +1,167 @@
 console.log('Renderer process loaded');
 
+// Language translations
+const translations = {
+  tr: {
+    appTitle: "Discord Token Checker",
+    appDescription: "Token'larınızı güvenli bir şekilde kontrol edin",
+    singleTokenTitle: "Tek Token",
+    multiTokenTitle: "Çoklu Token (Dosyadan)",
+    tokenPlaceholder: "Discord token'ınızı buraya yapıştırın...",
+    fileSelectLabel: "Dosya Seç",
+    fileInfoText: "Her satıra bir token yazın (.txt formatında)",
+    checkSingleButton: "Tek Token'ı Kontrol Et",
+    checkFileButton: "Dosyadaki Token'ları Kontrol Et",
+    resultsTitle: "Sonuçlar",
+    noFileSelected: "Hiçbir dosya seçilmedi",
+    enterTokenAlert: "Lütfen bir token girin!",
+    selectFileAlert: "Lütfen bir dosya seçin!",
+    checkingToken: "Token kontrol ediliyor...",
+    checkingTokens: "Token'lar kontrol ediliyor...",
+    fileReadError: "Dosya okunamadı:",
+    noTokensInFile: "Dosyada hiç token bulunamadı!",
+    resultsNotFound: "Sonuç bulunamadı.",
+    validStatus: "Geçerli",
+    invalidStatus: "Geçersiz",
+    invalidTokenMessage: "Geçersiz Token",
+    userIdLabel: "Kullanıcı ID",
+    emailLabel: "E-posta",
+    phoneLabel: "Telefon",
+    verifiedLabel: "Doğrulanmış",
+    createdAtLabel: "Oluşturulma Tarihi",
+    nitroStatusLabel: "Nitro Durumu",
+    noNitro: "No Nitro",
+    nitroClassic: "Nitro Classic",
+    nitroBoost: "Nitro Boost",
+    prevPage: "Önceki",
+    nextPage: "Sonraki",
+    yes: "Yes",
+    no: "No",
+    notAvailable: "Not available"
+  },
+  en: {
+    appTitle: "Discord Token Checker",
+    appDescription: "Check your tokens securely",
+    singleTokenTitle: "Single Token",
+    multiTokenTitle: "Multiple Tokens (From File)",
+    tokenPlaceholder: "Paste your Discord token here...",
+    fileSelectLabel: "Select File",
+    fileInfoText: "Write one token per line (.txt format)",
+    checkSingleButton: "Check Single Token",
+    checkFileButton: "Check Tokens from File",
+    resultsTitle: "Results",
+    noFileSelected: "No file selected",
+    enterTokenAlert: "Please enter a token!",
+    selectFileAlert: "Please select a file!",
+    checkingToken: "Checking token...",
+    checkingTokens: "Checking tokens...",
+    fileReadError: "Could not read file:",
+    noTokensInFile: "No tokens found in the file!",
+    resultsNotFound: "No results found.",
+    validStatus: "Valid",
+    invalidStatus: "Invalid",
+    invalidTokenMessage: "Invalid Token",
+    userIdLabel: "User ID",
+    emailLabel: "Email",
+    phoneLabel: "Phone",
+    verifiedLabel: "Verified",
+    createdAtLabel: "Created At",
+    nitroStatusLabel: "Nitro Status",
+    noNitro: "No Nitro",
+    nitroClassic: "Nitro Classic",
+    nitroBoost: "Nitro Boost",
+    prevPage: "Previous",
+    nextPage: "Next",
+    yes: "Yes",
+    no: "No",
+    notAvailable: "Not available"
+  }
+};
+
+// Current language (default is Turkish)
+let currentLanguage = 'tr';
+
+// Function to translate text
+function translate(key) {
+  return translations[currentLanguage][key] || key;
+}
+
+// Function to update all translatable elements
+function updateTranslations() {
+  document.getElementById('appDescription').textContent = translate('appDescription');
+  document.getElementById('singleTokenTitle').textContent = translate('singleTokenTitle');
+  document.getElementById('multiTokenTitle').textContent = translate('multiTokenTitle');
+  document.getElementById('tokenInput').placeholder = translate('tokenPlaceholder');
+  document.getElementById('fileSelectLabel').textContent = translate('fileSelectLabel');
+  document.getElementById('fileInfoText').textContent = translate('fileInfoText');
+  document.getElementById('checkSingleButton').textContent = translate('checkSingleButton');
+  document.getElementById('checkFileButton').textContent = translate('checkFileButton');
+  document.getElementById('resultsTitle').textContent = translate('resultsTitle');
+  
+  // Update file name text if it's the default
+  const fileNameElement = document.getElementById('fileName');
+  if (fileNameElement.textContent === translations.tr.noFileSelected || 
+      fileNameElement.textContent === translations.en.noFileSelected) {
+    fileNameElement.textContent = translate('noFileSelected');
+  }
+  
+  // Update any existing results
+  updateResultsLanguage();
+}
+
+// Function to update language in existing results
+function updateResultsLanguage() {
+  const validStatusElements = document.querySelectorAll('.token-status.valid');
+  validStatusElements.forEach(el => {
+    el.textContent = translate('validStatus');
+  });
+  
+  const invalidStatusElements = document.querySelectorAll('.token-status.invalid');
+  invalidStatusElements.forEach(el => {
+    el.textContent = translate('invalidStatus');
+  });
+  
+  const detailLabels = document.querySelectorAll('.detail-label');
+  detailLabels.forEach(el => {
+    const text = el.textContent;
+    if (text.includes('Kullanıcı ID') || text.includes('User ID')) {
+      el.textContent = translate('userIdLabel');
+    } else if (text.includes('E-posta') || text.includes('Email')) {
+      el.textContent = translate('emailLabel');
+    } else if (text.includes('Telefon') || text.includes('Phone')) {
+      el.textContent = translate('phoneLabel');
+    } else if (text.includes('Doğrulanmış') || text.includes('Verified')) {
+      el.textContent = translate('verifiedLabel');
+    } else if (text.includes('Oluşturulma Tarihi') || text.includes('Created At')) {
+      el.textContent = translate('createdAtLabel');
+    } else if (text.includes('Nitro Durumu') || text.includes('Nitro Status')) {
+      el.textContent = translate('nitroStatusLabel');
+    }
+  });
+  
+  const nitroDetails = document.querySelectorAll('.nitro-detail');
+  nitroDetails.forEach(el => {
+    const text = el.textContent;
+    if (text.includes('No Nitro')) {
+      el.textContent = translate('noNitro');
+    } else if (text.includes('Nitro Classic')) {
+      el.textContent = translate('nitroClassic');
+    } else if (text.includes('Nitro Boost')) {
+      el.textContent = translate('nitroBoost');
+    }
+  });
+  
+  const prevButtons = document.querySelectorAll('#prevPage');
+  prevButtons.forEach(el => {
+    el.textContent = translate('prevPage');
+  });
+  
+  const nextButtons = document.querySelectorAll('#nextPage');
+  nextButtons.forEach(el => {
+    el.textContent = translate('nextPage');
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded');
     const tokenInput = document.getElementById('tokenInput');
@@ -9,10 +171,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkFileButton = document.getElementById('checkFileButton');
     const resultsContainer = document.getElementById('resultsContainer');
     const pagination = document.getElementById('pagination');
+    const languageSelect = document.getElementById('languageSelect');
     
     let allResults = [];
     let currentPage = 1;
     const resultsPerPage = 10;
+    
+    // Set initial language
+    languageSelect.value = currentLanguage;
+    
+    // Language change handler
+    languageSelect.addEventListener('change', (event) => {
+        currentLanguage = event.target.value;
+        updateTranslations();
+    });
     
     // File selection handler
     tokenFile.addEventListener('change', (event) => {
@@ -20,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (file) {
             fileName.textContent = file.name;
         } else {
-            fileName.textContent = 'Hiçbir dosya seçilmedi';
+            fileName.textContent = translate('noFileSelected');
         }
     });
     
@@ -29,12 +201,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = tokenInput.value.trim();
         
         if (!token) {
-            alert('Lütfen bir token girin!');
+            alert(translate('enterTokenAlert'));
             return;
         }
         
         // Show loading state
-        resultsContainer.innerHTML = '<div class="loading">Token kontrol ediliyor...</div>';
+        resultsContainer.innerHTML = `<div class="loading">${translate('checkingToken')}</div>`;
         pagination.innerHTML = '';
         
         try {
@@ -51,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check tokens from file
     checkFileButton.addEventListener('click', async () => {
         if (!tokenFile.files.length) {
-            alert('Lütfen bir dosya seçin!');
+            alert(translate('selectFileAlert'));
             return;
         }
         
@@ -59,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const filePath = file.path;
         
         // Show loading state
-        resultsContainer.innerHTML = '<div class="loading">Token\'lar kontrol ediliyor...</div>';
+        resultsContainer.innerHTML = `<div class="loading">${translate('checkingTokens')}</div>`;
         pagination.innerHTML = '';
         
         try {
@@ -67,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const fileResult = await window.electronAPI.readFile(filePath);
             
             if (!fileResult.success) {
-                resultsContainer.innerHTML = `<div class="error-message">Dosya okunamadı: ${fileResult.error}</div>`;
+                resultsContainer.innerHTML = `<div class="error-message">${translate('fileReadError')} ${fileResult.error}</div>`;
                 return;
             }
             
@@ -75,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tokens = fileResult.content.split('\n').map(token => token.trim()).filter(token => token.length > 0);
             
             if (tokens.length === 0) {
-                resultsContainer.innerHTML = '<div class="error-message">Dosyada hiç token bulunamadı!</div>';
+                resultsContainer.innerHTML = `<div class="error-message">${translate('noTokensInFile')}</div>`;
                 return;
             }
             
@@ -98,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 // Update progress
-                resultsContainer.innerHTML = `<div class="loading">Token'lar kontrol ediliyor... (${i+1}/${tokens.length})</div>`;
+                resultsContainer.innerHTML = `<div class="loading">${translate('checkingTokens')} (${i+1}/${tokens.length})</div>`;
             }
             
             displayResults();
@@ -114,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pageResults = allResults.slice(startIndex, endIndex);
         
         if (pageResults.length === 0) {
-            resultsContainer.innerHTML = '<div class="no-results">Sonuç bulunamadı.</div>';
+            resultsContainer.innerHTML = `<div class="no-results">${translate('resultsNotFound')}</div>`;
             renderPagination();
             return;
         }
@@ -142,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Previous button
         paginationHTML += `
             <button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>
-                Önceki
+                ${translate('prevPage')}
             </button>
         `;
         
@@ -160,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Next button
         paginationHTML += `
             <button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''}>
-                Sonraki
+                ${translate('nextPage')}
             </button>
         `;
         
@@ -194,6 +366,22 @@ document.addEventListener('DOMContentLoaded', () => {
         card.className = 'token-card';
         
         if (result.valid) {
+            // Translate Nitro status
+            let nitroTranslation = translate('noNitro');
+            if (result.hasNitro === "Nitro Classic") {
+                nitroTranslation = translate('nitroClassic');
+            } else if (result.hasNitro === "Nitro Boost") {
+                nitroTranslation = translate('nitroBoost');
+            } else if (result.hasNitro === "No Nitro") {
+                nitroTranslation = translate('noNitro');
+            } else {
+                nitroTranslation = result.hasNitro;
+            }
+            
+            // Translate verified status
+            const verifiedTranslation = result.verified === "Yes" ? translate('yes') : 
+                                     result.verified === "No" ? translate('no') : result.verified;
+            
             card.innerHTML = `
                 <div class="token-header">
                     ${result.avatar ? 
@@ -203,32 +391,32 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="token-username">${result.username}</div>
                         <div class="token-discriminator">#${result.discriminator}</div>
                     </div>
-                    <div class="token-status valid">Geçerli</div>
+                    <div class="token-status valid">${translate('validStatus')}</div>
                 </div>
                 <div class="token-details">
                     <div class="detail-item">
-                        <div class="detail-label">Kullanıcı ID</div>
+                        <div class="detail-label">${translate('userIdLabel')}</div>
                         <div class="detail-value token-id">${result.id}</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">E-posta</div>
+                        <div class="detail-label">${translate('emailLabel')}</div>
                         <div class="detail-value">${result.email}</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Telefon</div>
-                        <div class="detail-value">${result.phone}</div>
+                        <div class="detail-label">${translate('phoneLabel')}</div>
+                        <div class="detail-value">${result.phone || translate('notAvailable')}</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Doğrulanmış</div>
-                        <div class="detail-value">${result.verified}</div>
+                        <div class="detail-label">${translate('verifiedLabel')}</div>
+                        <div class="detail-value">${verifiedTranslation}</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Oluşturulma Tarihi</div>
+                        <div class="detail-label">${translate('createdAtLabel')}</div>
                         <div class="detail-value created-at">${result.createdAt}</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Nitro Durumu</div>
-                        <div class="detail-value nitro-detail">${result.hasNitro}</div>
+                        <div class="detail-label">${translate('nitroStatusLabel')}</div>
+                        <div class="detail-value nitro-detail">${nitroTranslation}</div>
                     </div>
                 </div>
             `;
@@ -237,9 +425,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="token-header">
                     <div class="token-avatar"></div>
                     <div>
-                        <div class="token-username">Geçersiz Token</div>
+                        <div class="token-username">${translate('invalidTokenMessage')}</div>
                     </div>
-                    <div class="token-status invalid">Geçersiz</div>
+                    <div class="token-status invalid">${translate('invalidStatus')}</div>
                 </div>
                 <div class="error-message">
                     Token geçersiz: ${result.error}
