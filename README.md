@@ -22,12 +22,12 @@ start_app.bat
 
 <p>
   <b>
-  Application code files:
+  Supported Languages:
   </b>
   
 </p>
 
-![Application code files](token-checker-dosyalar.PNG)
+![Application code files](İngilizce-olanı.PNG)
 
 **My Discord account: souse.0**
 
